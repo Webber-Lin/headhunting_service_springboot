@@ -1,5 +1,6 @@
 package com.lzw.headhuntingservice.service;
 
+import com.lzw.headhuntingservice.bean.Applicant;
 import com.lzw.headhuntingservice.bean.User;
 import com.lzw.headhuntingservice.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,8 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public boolean login(User user) {
-        return userMapper.selectUser(user) != null;
+    public int login(User user) {
+        return userMapper.selectUser(user);
     }
 
     public boolean isExistUser(User user) {
@@ -29,5 +30,15 @@ public class UserService {
 
     public boolean register(User user) {
         return userMapper.insertUser(user);
+    }
+
+
+    public boolean improveApplicant(Applicant applicant) {
+        userMapper.deleteApplicant(applicant);
+        return userMapper.improveApplicant(applicant);
+    }
+
+    public Applicant selectApplicant(Integer integer) {
+        return userMapper.selectApplicant(integer);
     }
 }

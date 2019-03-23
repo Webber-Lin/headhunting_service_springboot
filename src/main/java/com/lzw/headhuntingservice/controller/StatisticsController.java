@@ -7,5 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class StatisticsController {
 
+    //查看求职意向
+
+    //查看招聘信息
 
 }

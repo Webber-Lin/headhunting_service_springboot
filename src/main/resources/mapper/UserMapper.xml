@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lzw.headhuntingservice.mapper.UserMapper">
-  <select id="selectUser" resultType="User" parameterType="User">
+  <select id="selectUser" resultType="Integer" parameterType="User">
     select
-    id,username,userpsd
+    id
     from user
     where username=#{username} and userpsd=#{userpsd}
   </select>
@@ -18,4 +18,20 @@
     <insert id="insertUser" parameterType="User">
         insert into user(username,userpsd) values (#{username},#{userpsd})
     </insert>
+
+    <delete id="deleteApplicant" parameterType="Applicant">
+        delete from applicant where id=#{id}
+    </delete>
+
+    <insert id="improveApplicant" parameterType="Applicant">
+        insert into applicant(id, name, gender, age, address, education, tel, resume)
+        VALUES (#{id},#{name},#{gender},#{age},#{address},#{education},#{tel},#{resume})
+    </insert>
+
+    <select id="selectApplicant" resultType="Applicant" >
+        select
+        *
+        from applicant
+        where id=#{id}
+    </select>
 </mapper>

@@ -1,7 +1,9 @@
 package com.lzw.headhuntingservice.controller;
 
+import com.lzw.headhuntingservice.bean.Applicant;
 import com.lzw.headhuntingservice.bean.User;
 import com.lzw.headhuntingservice.service.UserService;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -32,16 +34,30 @@ public class UserController {
     }
 
     //用户注册
-    @RequestMapping("/register")
-    public String register(@RequestParam("username")String username,@RequestParam("userpsd") String userpsd){
-        User user=new User();
-        user.setUsername(username);
-        user.setUserpsd(userpsd);
+    @RequestMapping(value = "/register",method = RequestMethod.POST)
+    public String register(@RequestBody User user){
         if(userService.isExistUser(user)){
             return String.valueOf(false);
         }else {
             return String.valueOf(userService.register(user));
         }
     }
+
+    //完善信息
+    @RequestMapping(value="/improve_applicant",method = RequestMethod.POST)
+    public String improveApplicant(@RequestBody Applicant applicant){
+        return String.valueOf(userService.improveApplicant(applicant));
+    }
+
+    //查看求职者个人信息
+    @RequestMapping("/select_applicant")
+    public String selectApplicant(@RequestParam("id") Integer integer){
+        JSONObject jsonObject=JSONObject.fromObject(userService.selectApplicant(integer));
+        return jsonObject.toString();
+    }
+
+    //求职意向
+
+    //招聘信息
 
 }
